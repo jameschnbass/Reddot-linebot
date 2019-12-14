@@ -28,6 +28,7 @@ function handleEvent(event) {
         // ignore non-text-message event
         return Promise.resolve(null);
     }
+    console.log(event);
     let echo = {};
     switch (event.message.text) {
         case '目前機況':
@@ -75,11 +76,17 @@ function handleEvent(event) {
                 }
             }
             break;
+        case '訂閱機況':
+            echo = {
+                type: 'text',
+                text: '[' + event.source.userId + ']' + '訂閱成功'
+            }
+            break;
 
         default:
             echo = {
                 type: 'text',
-                text: event.message.text + ",是在哈囉?"
+                text: '[' + event.message.text + ']' + '??    是在哈囉?'
             }
     }
     // use reply API
