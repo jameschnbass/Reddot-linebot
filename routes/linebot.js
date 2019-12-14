@@ -31,17 +31,33 @@ function handleEvent(event) {
     let echo = {};
     switch (event.message.text) {
         case '目前機況':
-            echo = echo = {
-                type: 'text',
-                text: event.message.text + ",是在哈囉?"
-            };
+            echo = {
+                "type": "flex",
+                "altText": "this is a flex message",
+                "contents": {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [{
+                                "type": "text",
+                                "text": "hello"
+                            },
+                            {
+                                "type": "text",
+                                "text": "world"
+                            }
+                        ]
+                    }
+                }
+            }
             break;
 
         default:
             echo = {
                 type: 'text',
                 text: event.message.text + ",是在哈囉?"
-            };
+            }
     }
     // use reply API
     return client.replyMessage(event.replyToken, echo);
