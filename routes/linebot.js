@@ -42,7 +42,7 @@ function handleEvent(event) {
                         contents: [{
 
                                 type: 'text',
-                                text: topic,
+                                text: 'Advantech/00D0C9E5A966/data',
                                 size: "lg",
                                 weight: "bold",
                             },
