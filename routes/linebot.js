@@ -77,7 +77,7 @@ function handleEvent(event) {
             break;
 
         default:
-            const echo = {
+            echo = {
 
                 type: 'text',
                 text: event.message.text + ",是在哈囉?"
