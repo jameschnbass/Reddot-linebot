@@ -23,6 +23,7 @@ router.post('/callback', line.middleware(config), (req, res) => {
 
 // event handler
 function handleEvent(event) {
+    console.log(event);
     if (event.type !== 'message' || event.message.type !== 'text') {
         // ignore non-text-message event
         return Promise.resolve(null);
@@ -31,7 +32,7 @@ function handleEvent(event) {
     // create a echoing text message
     const echo = {
         type: 'text',
-        text: event.message.text + "!!!!?????!"
+        text: event.message.text + "是在哈囉?"
     };
 
     // use reply API
