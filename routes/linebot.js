@@ -31,57 +31,16 @@ function handleEvent(event) {
     let echo = {};
     switch (event.message.text) {
         case '目前機況':
-            echo = {
-                type: 'flex',
-                altText: 'ADAM',
-                contents: {
-                    type: 'bubble',
-                    body: {
-                        type: 'box',
-                        layout: 'vertical',
-                        contents: [{
-
-                                type: 'text',
-                                text: topic,
-                                size: "lg",
-                                weight: "bold",
-                            },
-                            {
-                                type: 'text',
-                                text: 'd01:' + 'true'
-                            },
-                            {
-                                type: 'text',
-                                text: 'do2:' + 'true'
-                            },
-                            {
-                                type: 'text',
-                                text: 'do3:' + 'true'
-                            },
-                            {
-                                type: 'text',
-                                text: 'do4:' + 'true'
-                            },
-                            {
-                                type: 'text',
-                                text: 'do5:' + 'true'
-                            },
-                            {
-                                type: 'text',
-                                text: 'do6:' + 'true'
-                            }
-                        ]
-                    }
-                }
+            echo = echo = {
+                type: 'text',
+                text: event.message.text + ",是在哈囉?"
             };
             break;
 
         default:
             echo = {
-
                 type: 'text',
                 text: event.message.text + ",是在哈囉?"
-
             };
     }
     // use reply API
