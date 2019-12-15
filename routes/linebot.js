@@ -25,7 +25,6 @@ const config = {
 
 const client = new line.Client(config);
 router.post('/callback', line.middleware(config), (req, res) => {
-    console.log(req);
     Promise
         .all(req.body.events.map(handleEvent))
         .then((result) => res.json(result))
@@ -38,7 +37,6 @@ router.post('/callback', line.middleware(config), (req, res) => {
 
 // event handler
 function handleEvent(event) {
-    console.log(event);
     if (event.type !== 'message' || event.message.type !== 'text') {
         // ignore non-text-message event
         return Promise.resolve(null);
@@ -46,12 +44,12 @@ function handleEvent(event) {
     let echo = {};
     switch (event.message.text) {
         case '目前機況':
-            client.get('Advantech/00D0C9E5A966/data', function (error, res) {
+            let value = {};
+            redis_client.get('Advantech/00D0C9E5A966/data', function (error, res) {
                 if (error) {
                     console.log(error);
                 } else {
-                    let value = JSON.parse(res);
-                    console.log(value);
+                    value = JSON.parse(res);
                     echo = {
                         type: 'flex',
                         altText: 'ADAM',
@@ -96,27 +94,32 @@ function handleEvent(event) {
                         }
                     }
                 }
+                return client.replyMessage(event.replyToken, echo);
             })
+
             break;
         case '訂閱機況':
             redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
                 console.log('訂閱成功');
                 client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
+                echo = {
+                    type: 'text',
+                    text: '[' + event.source.userId + ']' + '訂閱成功'
+                }
+                return client.replyMessage(event.replyToken, echo);
             });
-            echo = {
-                type: 'text',
-                text: '[' + event.source.userId + ']' + '訂閱成功'
-            }
+
             break;
         case '取消訂閱機況':
             redis_client.hdel("訂閱機況", event.source.userId, () => {
                 console.log('取消訂閱機況成功');
                 client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
+                echo = {
+                    type: 'text',
+                    text: '[' + event.source.userId + ']' + '取消訂閱機況成功'
+                }
+                return client.replyMessage(event.replyToken, echo);
             });
-            echo = {
-                type: 'text',
-                text: '[' + event.source.userId + ']' + '取消訂閱機況成功'
-            }
             break;
 
         default:
@@ -124,9 +127,9 @@ function handleEvent(event) {
                 type: 'text',
                 text: '[' + event.message.text + ']' + '??    是在哈囉?'
             }
+            return client.replyMessage(event.replyToken, echo);
     }
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
+
 }
 
 module.exports = router;
