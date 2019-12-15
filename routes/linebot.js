@@ -125,7 +125,7 @@ function handleEvent(event) {
         default:
             echo = {
                 type: 'text',
-                text: '[' + event + ']' + '??    是在哈囉?'
+                text: '[' + JSON.stringify(event) + ']' + '??    是在哈囉?'
             }
             return client.replyMessage(event.replyToken, echo);
     }
