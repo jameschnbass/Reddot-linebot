@@ -1,0 +1,15 @@
+[{
+    "type": "message",
+    "replyToken": "4abe3d95465d4f3f898b2ebd5efeeae4",
+    "source": {
+        "userId": "Ue6358192bf3c48ee2aaaa6bebf74ff38",
+        "roomId": "R7d5cc2ea052637fff31bd29e9593da5b",
+        "type": "room"
+    },
+    "timestamp": 1576405150087,
+    "message": {
+        "type": "text",
+        "id": "11088228953064",
+        "text": "你好"
+    }
+}]
