@@ -94,6 +94,7 @@ function handleEvent(event) {
         case '訂閱機況':
             redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
                 console.log('訂閱成功');
+                client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
             });
             echo = {
                 type: 'text',
@@ -103,6 +104,7 @@ function handleEvent(event) {
         case '取消訂閱機況':
             redis_client.hdel("訂閱機況", event.source.userId, () => {
                 console.log('取消訂閱機況成功');
+                client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
             });
             echo = {
                 type: 'text',
