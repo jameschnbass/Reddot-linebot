@@ -48,84 +48,85 @@ function handleEvent(event) {
     switch (event.message.text) {
         case '目前機況':
             client.get('Advantech/00D0C9E5A966/data', function (error, res) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        let value = JSON.parse(res);
-                        echo = {
-                            type: 'flex',
-                            altText: 'ADAM',
-                            contents: {
-                                type: 'bubble',
-                                body: {
-                                    type: 'box',
-                                    layout: 'vertical',
-                                    contents: [{
+                if (error) {
+                    console.log(error);
+                } else {
+                    let value = JSON.parse(res);
+                    echo = {
+                        type: 'flex',
+                        altText: 'ADAM',
+                        contents: {
+                            type: 'bubble',
+                            body: {
+                                type: 'box',
+                                layout: 'vertical',
+                                contents: [{
 
-                                            type: 'text',
-                                            text: 'Advantech/00D0C9E5A966/data',
-                                            size: "lg",
-                                            weight: "bold",
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'd01:' + value.do1.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'do2:' + value.do2.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'do3:' + value.do3.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'do4:' + value.do4.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'do5:' + value.do5.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: 'do6:' + value.do6.toString()
-                                        }
-                                    ]
-                                }
+                                        type: 'text',
+                                        text: 'Advantech/00D0C9E5A966/data',
+                                        size: "lg",
+                                        weight: "bold",
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'd01:' + value.do1.toString()
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'do2:' + value.do2.toString()
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'do3:' + value.do3.toString()
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'do4:' + value.do4.toString()
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'do5:' + value.do5.toString()
+                                    },
+                                    {
+                                        type: 'text',
+                                        text: 'do6:' + value.do6.toString()
+                                    }
+                                ]
                             }
                         }
                     }
-                };
-
-                break;
-                case '訂閱機況':
-                redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
-                    console.log('訂閱成功');
-                    client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
-                }); echo = {
-                    type: 'text',
-                    text: '[' + event.source.userId + ']' + '訂閱成功'
                 }
-                break;
-                case '取消訂閱機況':
-                redis_client.hdel("訂閱機況", event.source.userId, () => {
-                    console.log('取消訂閱機況成功');
-                    client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
-                }); echo = {
-                    type: 'text',
-                    text: '[' + event.source.userId + ']' + '取消訂閱機況成功'
-                }
-                break;
-
-                default:
-                echo = {
-                    type: 'text',
-                    text: '[' + event.message.text + ']' + '??    是在哈囉?'
-                }
+            })
+            break;
+        case '訂閱機況':
+            redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
+                console.log('訂閱成功');
+                client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
+            });
+            echo = {
+                type: 'text',
+                text: '[' + event.source.userId + ']' + '訂閱成功'
             }
-            // use reply API
-            return client.replyMessage(event.replyToken, echo);
-    }
+            break;
+        case '取消訂閱機況':
+            redis_client.hdel("訂閱機況", event.source.userId, () => {
+                console.log('取消訂閱機況成功');
+                client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
+            });
+            echo = {
+                type: 'text',
+                text: '[' + event.source.userId + ']' + '取消訂閱機況成功'
+            }
+            break;
 
-    module.exports = router;
+        default:
+            echo = {
+                type: 'text',
+                text: '[' + event.message.text + ']' + '??    是在哈囉?'
+            }
+    }
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+}
+
+module.exports = router;
