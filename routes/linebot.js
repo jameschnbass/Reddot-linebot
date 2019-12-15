@@ -61,33 +61,33 @@ function handleEvent(event) {
                                 contents: [{
 
                                         type: 'text',
-                                        text: 'Advantech/00D0C9E5A966/data',
+                                        text: '鼎曜開發(大寮廠)',
                                         size: "lg",
                                         weight: "bold",
                                     },
                                     {
                                         type: 'text',
-                                        text: 'd01:' + value.do1.toString()
+                                        text: '產線1:' + value.do1.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: 'do2:' + value.do2.toString()
+                                        text: '產線2:' + value.do2.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: 'do3:' + value.do3.toString()
+                                        text: '產線3:' + value.do3.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: 'do4:' + value.do4.toString()
+                                        text: '產線4:' + value.do4.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: 'do5:' + value.do5.toString()
+                                        text: '產線5:' + value.do5.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: 'do6:' + value.do6.toString()
+                                        text: '產線6:' + value.do6.toString()
                                     }
                                 ]
                             }
