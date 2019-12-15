@@ -1,7 +1,21 @@
 var express = require('express');
 const line = require('@line/bot-sdk');
 var router = express.Router();
+const redis = require('redis');
+const redisPassword = "MEA3MjMV7iNi2zO2b3mIOYwgTdirRMlg";
+const redis_client = redis.createClient({
+    port: 19837,
+    host: 'redis-19837.c10.us-east-1-4.ec2.cloud.redislabs.com',
+    no_ready_check: true,
+    auth_pass: redisPassword,
+});
 
+redis_client.on('connect', () => {
+    global.console.log("connected");
+});
+redis_client.on('error', err => {
+    global.console.log(err.message);
+});
 // 用於辨識Line Channel的資訊
 const config = {
     channelSecret: 'e33190c063ad5d816d576597157a01a6',
@@ -77,9 +91,21 @@ function handleEvent(event) {
             }
             break;
         case '訂閱機況':
+            redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
+                console.log('訂閱成功');
+            });
             echo = {
                 type: 'text',
                 text: '[' + event.source.userId + ']' + '訂閱成功'
+            }
+            break;
+        case '取消訂閱機況':
+            redis_client.hdel("訂閱機況", event.source.userId, () => {
+                console.log('取消訂閱機況成功');
+            });
+            echo = {
+                type: 'text',
+                text: '[' + event.source.userId + ']' + '取消訂閱機況成功'
             }
             break;
 
