@@ -43,7 +43,6 @@ function handleEvent(event) {
         // ignore non-text-message event
         return Promise.resolve(null);
     }
-    console.log(event);
     let echo = {};
     switch (event.message.text) {
         case '目前機況':
@@ -52,6 +51,7 @@ function handleEvent(event) {
                     console.log(error);
                 } else {
                     let value = JSON.parse(res);
+                    console.log(value);
                     echo = {
                         type: 'flex',
                         altText: 'ADAM',
