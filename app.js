@@ -18,9 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/linebot', linebotRouter);
+
 app.use(express.urlencoded({
   extended: false
 }));
+
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
