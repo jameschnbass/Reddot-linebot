@@ -33,7 +33,7 @@ server.on('error', onError);
 server.on('listening', onListening);
 mqttClient.on('connect', function () {
   console.log('已連接至MQTT伺服器');
-  mqttClient.subscribe("Advantech/00D0C9E34E3F/data");
+  mqttClient.subscribe("Advantech/00D0C9E5A966/data");
 });
 
 /**
