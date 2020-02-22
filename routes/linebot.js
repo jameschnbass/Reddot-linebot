@@ -67,20 +67,16 @@ function handleEvent(event) {
                                     },
                                     {
                                         type: 'text',
-                                        text: '產線1:' + value.do1.toString()
+                                        text: '產線1:' + value.di1.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: '產線2:' + value.do2.toString()
+                                        text: '產線2:' + value.di2.toString()
                                     },
                                     {
                                         type: 'text',
-                                        text: '產線3:' + value.do3.toString()
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線4:' + value.do4.toString()
-                                    }                                    
+                                        text: '產線3:' + value.di3.toString()
+                                    }                                 
                                 ]
                             }
                         }
