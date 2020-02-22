@@ -45,7 +45,7 @@ function handleEvent(event) {
     switch (event.message.text) {
         case '目前機況':
             let value = {};
-            redis_client.get('Advantech/00D0C9E5A966/data', function (error, res) {
+            redis_client.get('Advantech/00D0C9E38A96/data', function (error, res) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -80,15 +80,7 @@ function handleEvent(event) {
                                     {
                                         type: 'text',
                                         text: '產線4:' + value.do4.toString()
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線5:' + value.do5.toString()
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線6:' + value.do6.toString()
-                                    }
+                                    }                                    
                                 ]
                             }
                         }
@@ -177,13 +169,6 @@ function handleEvent(event) {
 
             break;
 
-            // default:
-            //     echo = {
-            //         type: 'text',
-            //         //text: '[' + JSON.stringify(event) + ']' + '??    是在哈囉?'
-            //         text: '[' + JSON.stringify(event) + ']' + '??    是在哈囉?'
-            //     }
-            //     return client.replyMessage(event.replyToken, echo);
     }
 
 }
