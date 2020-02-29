@@ -70,7 +70,7 @@ function handleEvent(event) {
                                         } ,
                                         {
                                             type: 'text',
-                                            text: 'Time:' + IOval.t.toString()
+                                            text: 'Time:' + res.t.toString()
                                         }
                                     ]
                                 }
