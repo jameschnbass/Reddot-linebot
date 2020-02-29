@@ -7,6 +7,4 @@ router.get('/', function (req, res, next) {
     title: '紅點科技'
   });
 });
-
-
 module.exports = router;
