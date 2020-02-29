@@ -12,7 +12,7 @@ router.post('/', function (req, res, next) {
 
     redisclient.set('DeviceMAC', req.body.MAC, () => {
         res.send('DeviceMAC :' + req.body.MAC);
-        mqttclient.unsubscribe('Advantech/' + req.body.MAC + '/data', () => {
+        mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', () => {
         });
     });
 
