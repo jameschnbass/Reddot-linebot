@@ -11,6 +11,9 @@ router.post('/', function (req, res, next) {
     });
 
     redisclient.set('DeviceMAC', req.body.MAC, () => {
+        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di1',false);
+        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di2',false);
+        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di3',false);
         res.send('DeviceMAC :' + req.body.MAC);
         mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', () => {
         });
