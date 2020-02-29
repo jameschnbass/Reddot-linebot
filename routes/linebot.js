@@ -29,50 +29,52 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
     let echo = {};
-    let MAC = redisclient.get('DeviceMAC');
+
     switch (event.message.text) {
         case '目前機況':
             let value = {};
-            redisclient.get('Advantech/'+MAC+'/data', function (error, res) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    value = JSON.parse(res);
-                    echo = {
-                        type: 'flex',
-                        altText: 'ADAM',
-                        contents: {
-                            type: 'bubble',
-                            body: {
-                                type: 'box',
-                                layout: 'vertical',
-                                contents: [{
+            let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
+                redisclient.get('Advantech/' + MAC + '/data', function (error, res) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        value = JSON.parse(res);
+                        echo = {
+                            type: 'flex',
+                            altText: 'ADAM',
+                            contents: {
+                                type: 'bubble',
+                                body: {
+                                    type: 'box',
+                                    layout: 'vertical',
+                                    contents: [{
 
-                                        type: 'text',
-                                        text: '鼎曜開發(大寮廠)',
-                                        size: "lg",
-                                        weight: "bold",
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線1:' + value.di1.toString()
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線2:' + value.di2.toString()
-                                    },
-                                    {
-                                        type: 'text',
-                                        text: '產線3:' + value.di3.toString()
-                                    }                                 
-                                ]
+                                            type: 'text',
+                                            text: '鼎曜開發(大寮廠)',
+                                            size: "lg",
+                                            weight: "bold",
+                                        },
+                                        {
+                                            type: 'text',
+                                            text: '產線1:' + value.di1.toString()
+                                        },
+                                        {
+                                            type: 'text',
+                                            text: '產線2:' + value.di2.toString()
+                                        },
+                                        {
+                                            type: 'text',
+                                            text: '產線3:' + value.di3.toString()
+                                        }
+                                    ]
+                                }
                             }
                         }
                     }
-                }
-                return client.replyMessage(event.replyToken, echo);
-            })
+                    return client.replyMessage(event.replyToken, echo);
+                })
 
+            });
             break;
         case '訂閱機況':
             switch (event.source.type) {
