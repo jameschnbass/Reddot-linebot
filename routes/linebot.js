@@ -29,12 +29,23 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
     let echo = {};
-
     switch (event.message.text) {
         case '目前機況':
             let value = {};
             let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
-                redisclient.get('Advantech/' + MAC + '/data', function (error, res) {
+                redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
+                    let state = '';
+                    if (res.di1 === 'false' && res.di2 === 'false' && res.di3 === 'false')
+                        return;
+                    if (res.di1 === 'true' && res.di2 === 'false' && res.di3 === 'false') {
+                        state = 'Run';
+                    } else if (res.di1 === 'false' && res.di2 === 'true' && res.di3 === 'false') {
+                        state = 'Idle';
+                    } else if (res.di1 === 'false' && res.di2 === 'false' && res.di3 === 'true') {
+                        state = 'Stop';
+                    } else {
+                        return;
+                    }
                     if (error) {
                         console.log(error);
                     } else {
@@ -56,15 +67,7 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: '產線1:' + value.di1.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: '產線2:' + value.di2.toString()
-                                        },
-                                        {
-                                            type: 'text',
-                                            text: '產線3:' + value.di3.toString()
+                                            text: '產線狀況:' + state.toString()
                                         }
                                     ]
                                 }
