@@ -29,7 +29,7 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
     let echo = {};
-    let MAC = redisclient.get('MAC');
+    let MAC = redisclient.get('DeviceMAC');
     switch (event.message.text) {
         case '目前機況':
             let value = {};
