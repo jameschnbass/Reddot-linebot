@@ -16,7 +16,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+//linebot不需要先encoded因此要放前面
 app.use('/linebot', linebotRouter);
 
 app.use(express.urlencoded({
@@ -43,4 +43,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 module.exports = app;

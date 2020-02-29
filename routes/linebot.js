@@ -45,7 +45,7 @@ function handleEvent(event) {
     switch (event.message.text) {
         case '目前機況':
             let value = {};
-            redis_client.get('Advantech/00D0C9E38A96/data', function (error, res) {
+            redis_client.get('Advantech/00D0C9E34E3F/data', function (error, res) {
                 if (error) {
                     console.log(error);
                 } else {
