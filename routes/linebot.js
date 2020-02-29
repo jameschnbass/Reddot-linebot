@@ -49,7 +49,6 @@ function handleEvent(event) {
                     if (error) {
                         console.log(error);
                     } else {
-                        value = JSON.parse(res);
                         echo = {
                             type: 'flex',
                             altText: 'ADAM',
