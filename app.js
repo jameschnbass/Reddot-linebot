@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var linebotRouter = require('./routes/linebot');
+var webapiRouter = require('./routes/webapi');
 var app = express();
 
 // view engine setup
@@ -26,6 +27,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/setDeviceMAC', webapiRouter);
 
 
 // catch 404 and forward to error handler

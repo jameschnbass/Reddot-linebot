@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('myapp:server');
 var http = require('http');
 var mqttClient = require('../lib/mqttClient');
+var redisClient = require('../lib/redisClient');
 
 /**
  * Get port from environment and store in Express.
@@ -31,11 +32,6 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-mqttClient.on('connect', function () {
-  console.log('已連接至MQTT伺服器');
-  mqttClient.subscribe("Advantech/00D0C9E34E3F/data");
-});
-
 /**
  * Normalize a port into a number, string, or false.
  */

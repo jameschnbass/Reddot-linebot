@@ -1,21 +1,8 @@
 var express = require('express');
 const line = require('@line/bot-sdk');
 var router = express.Router();
-const redis = require('redis');
-const redisPassword = "MEA3MjMV7iNi2zO2b3mIOYwgTdirRMlg";
-const redis_client = redis.createClient({
-    port: 19837,
-    host: 'redis-19837.c10.us-east-1-4.ec2.cloud.redislabs.com',
-    no_ready_check: true,
-    auth_pass: redisPassword,
-});
+const redisclient = require('../lib/redisClient');
 
-redis_client.on('connect', () => {
-    global.console.log("connected");
-});
-redis_client.on('error', err => {
-    global.console.log(err.message);
-});
 // 用於辨識Line Channel的資訊
 const config = {
     channelSecret: 'e33190c063ad5d816d576597157a01a6',
@@ -42,10 +29,11 @@ function handleEvent(event) {
         return Promise.resolve(null);
     }
     let echo = {};
+    let MAC = redisclient.get('MAC');
     switch (event.message.text) {
         case '目前機況':
             let value = {};
-            redis_client.get('Advantech/00D0C9E34E3F/data', function (error, res) {
+            redisclient.get('Advantech/'+MAC+'/data', function (error, res) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -89,7 +77,7 @@ function handleEvent(event) {
         case '訂閱機況':
             switch (event.source.type) {
                 case 'user':
-                    redis_client.hset("訂閱機況", event.source.userId, Date.now(), () => {
+                    redisclient.hset("訂閱機況", event.source.userId, Date.now(), () => {
                         console.log('訂閱成功');
                         client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
@@ -100,7 +88,7 @@ function handleEvent(event) {
                     });
                     break;
                 case 'room':
-                    redis_client.hset("訂閱機況", event.source.roomId, Date.now(), () => {
+                    redisclient.hset("訂閱機況", event.source.roomId, Date.now(), () => {
                         console.log('訂閱成功');
                         client.linkRichMenuToUser(event.source.roomId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
@@ -111,7 +99,7 @@ function handleEvent(event) {
                     });
                     break;
                 case 'group':
-                    redis_client.hset("訂閱機況", event.source.groupId, Date.now(), () => {
+                    redisclient.hset("訂閱機況", event.source.groupId, Date.now(), () => {
                         console.log('訂閱成功');
                         client.linkRichMenuToUser(event.source.groupId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
@@ -129,7 +117,7 @@ function handleEvent(event) {
         case '取消訂閱機況':
             switch (event.source.type) {
                 case 'user':
-                    redis_client.hdel("訂閱機況", event.source.userId, () => {
+                    redisclient.hdel("訂閱機況", event.source.userId, () => {
                         console.log('取消訂閱機況成功');
                         client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
@@ -140,7 +128,7 @@ function handleEvent(event) {
                     });
                     break;
                 case 'room':
-                    redis_client.hdel("訂閱機況", event.source.roomId, () => {
+                    redisclient.hdel("訂閱機況", event.source.roomId, () => {
                         console.log('取消訂閱機況成功');
                         client.linkRichMenuToUser(event.source.roomId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
@@ -151,7 +139,7 @@ function handleEvent(event) {
                     });
                     break;
                 case 'group':
-                    redis_client.hdel("訂閱機況", event.source.groupId, () => {
+                    redisclient.hdel("訂閱機況", event.source.groupId, () => {
                         console.log('取消訂閱機況成功');
                         client.linkRichMenuToUser(event.source.groupId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
