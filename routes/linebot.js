@@ -35,8 +35,6 @@ function handleEvent(event) {
             let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
                     let state = '';
-                    if (res.di1 === 'false' && res.di2 === 'false' && res.di3 === 'false')
-                        return;
                     if (res.di1 === 'true' && res.di2 === 'false' && res.di3 === 'false') {
                         state = 'Run';
                     } else if (res.di1 === 'false' && res.di2 === 'true' && res.di3 === 'false') {
@@ -46,6 +44,7 @@ function handleEvent(event) {
                     } else {
                         return;
                     }
+                    console.log(res.t.toString());
                     if (error) {
                         console.log(error);
                     } else {
@@ -70,7 +69,7 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: 'Time:' + res.t
+                                            text: 'Time:' + res.t.toString()
                                         }
                                     ]
                                 }
