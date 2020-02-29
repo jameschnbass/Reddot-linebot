@@ -67,10 +67,10 @@ function handleEvent(event) {
                                         {
                                             type: 'text',
                                             text: '機台狀況:' + state.toString()
-                                        } ,
+                                        },
                                         {
                                             type: 'text',
-                                            text: 'Time:' + res.t.toString()
+                                            text: 'Time:' + res.t
                                         }
                                     ]
                                 }
