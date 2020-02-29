@@ -60,13 +60,17 @@ function handleEvent(event) {
                                     contents: [{
 
                                             type: 'text',
-                                            text: '鼎曜開發(大寮廠)',
+                                            text: '鼎曜開發',
                                             size: "lg",
                                             weight: "bold",
                                         },
                                         {
                                             type: 'text',
-                                            text: '產線狀況:' + state.toString()
+                                            text: '機台狀況:' + state.toString()
+                                        } ,
+                                        {
+                                            type: 'text',
+                                            text: 'Time:' + IOval.t.toString()
                                         }
                                     ]
                                 }
