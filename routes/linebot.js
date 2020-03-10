@@ -44,6 +44,7 @@ function handleEvent(event) {
                     } else {
                         return;
                     }
+                    let time = new Date(res.t);
                     console.log(res.t.toString());
                     if (error) {
                         console.log(error);
@@ -73,7 +74,15 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: '擷取時間:' + res.t.toString()
+                                            text: '擷取時間:'
+                                        },
+                                        {
+                                            type: 'text',
+                                            text: time.toDateString()
+                                        },
+                                        {
+                                            type: 'text',
+                                            text: time.toLocaleTimeString()
                                         }
                                     ]
                                 }
