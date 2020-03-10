@@ -27,7 +27,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/setDeviceMAC', webapiRouter);
+app.use('/api', webapiRouter);
 
 
 // catch 404 and forward to error handler
