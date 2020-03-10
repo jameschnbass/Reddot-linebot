@@ -78,7 +78,7 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: time.toDateString()
+                                            text: time.toLocaleDateString()
                                         },
                                         {
                                             type: 'text',
