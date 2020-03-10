@@ -65,6 +65,10 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
+                                            text: '機台編號:' + MAC.toString()
+                                        },
+                                        {
+                                            type: 'text',
                                             text: '機台狀況:' + state.toString()
                                         },
                                         {
