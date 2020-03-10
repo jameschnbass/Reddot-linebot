@@ -73,7 +73,7 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: 'Time:' + res.t.toString()
+                                            text: '擷取時間:' + res.t.toString()
                                         }
                                     ]
                                 }
