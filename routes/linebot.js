@@ -44,6 +44,7 @@ function handleEvent(event) {
                     } else {
                         return;
                     }
+
                     let time = new Date(res.t);
                     console.log(res.t.toString());
                     if (error) {
