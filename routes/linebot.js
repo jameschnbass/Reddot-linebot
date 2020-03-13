@@ -36,11 +36,11 @@ function handleEvent(event) {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
                     let state = '';
                     if (res.di1 === 'true' && res.di2 === 'false' && res.di3 === 'false') {
-                        state = '綠';
+                        state = '紅';
                     } else if (res.di1 === 'false' && res.di2 === 'true' && res.di3 === 'false') {
                         state = '黃';
                     } else if (res.di1 === 'false' && res.di2 === 'false' && res.di3 === 'true') {
-                        state = 'Stop';
+                        state = '綠';
                     } else {
                         return;
                     }
