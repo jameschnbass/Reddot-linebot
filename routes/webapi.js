@@ -4,10 +4,8 @@ const redisclient = require('../lib/redisClient');
 const mqttclient = require('../lib/mqttClient');
 /* GET users listing. */
 router.post('/DeviceMAC', function (req, res, next) {
-    redisclient.hgetall(DeviceMAC, function (err, allDeviceMAC) {
-        mqttclient.unsubscribe('Advantech/' + allDeviceMAC + '/data', (err) => {
-            console.log(err);
-        });
+    redisclient.hgetall('DeviceMAC', function (err, allDeviceMAC) {
+        mqttclient.unsubscribe('Advantech/' + allDeviceMAC + '/data', () => {});
         redisclient.hset('DeviceMAC', req.body.MAC, () => {
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
             res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
