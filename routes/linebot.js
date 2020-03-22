@@ -65,6 +65,10 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
+                                            text: '機台在線狀態:' + res.online.toString()
+                                        },
+                                        {
+                                            type: 'text',
                                             text: '擷取時間:'
                                         },
                                         {

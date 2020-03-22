@@ -8,6 +8,7 @@ router.post('/DeviceMAC', function (req, res, next) {
         mqttclient.unsubscribe('Advantech/' + allDeviceMAC + '/data', () => {});
         redisclient.set('DeviceMAC', req.body.MAC, () => {
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
+            redisclient.hset('Advantech/' + MAC + '/data', 'online', 'false');
             res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
             mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', () => {});
         });
