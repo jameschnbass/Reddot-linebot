@@ -4,15 +4,14 @@ const redisclient = require('../lib/redisClient');
 const mqttclient = require('../lib/mqttClient');
 /* GET users listing. */
 router.post('/DeviceMAC', function (req, res, next) {
-
-    redisclient.hset('DeviceMAC', req.body.MAC, () => {
-        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di1', false);
-        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di2', false);
-        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'di3', false);
-        res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
-        mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', () => {});
+    redisclient.hgetall(DeviceMAC, function (err, allDeviceMAC) {
+        mqttclient.subscribe('Advantech/' + allDeviceMAC + '/data', () => {});
+        redisclient.hset('DeviceMAC', req.body.MAC, () => {
+            redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
+            res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
+            mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', () => {});
+        });
     });
-
 });
 
 router.get('/DeviceMAC', function (req, res, next) {
