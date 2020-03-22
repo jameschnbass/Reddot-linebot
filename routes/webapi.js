@@ -22,11 +22,14 @@ router.get('/DeviceMAC', function (req, res, next) {
             pushMessage(element, devStatus, topic);
         });
     });
+    res.send('DeviceMAC :get.');
 
 });
 
 router.delete('/DeviceMAC', function (req, res, next) {
     //刪除
+
+    res.send('DeviceMAC :delete.');
 });
 
 module.exports = router;
