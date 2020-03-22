@@ -34,16 +34,6 @@ function handleEvent(event) {
             let value = {};
             let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
-                    let state = '';
-                    if (res.di1 === 'true' && res.di2 === 'false' && res.di3 === 'false') {
-                        state = '紅';
-                    } else if (res.di1 === 'false' && res.di2 === 'true' && res.di3 === 'false') {
-                        state = '黃';
-                    } else if (res.di1 === 'false' && res.di2 === 'false' && res.di3 === 'true') {
-                        state = '綠';
-                    } else {
-                        return;
-                    }
 
                     let time = new Date(res.t);
                     console.log(res.t.toString());
@@ -71,7 +61,7 @@ function handleEvent(event) {
                                         },
                                         {
                                             type: 'text',
-                                            text: '機台狀況:' + state.toString()
+                                            text: '機台狀況:' + res.light.toString()
                                         },
                                         {
                                             type: 'text',
