@@ -136,7 +136,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.userId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.userId + ']'*/ +'取消訂閱機況成功'
+                            text: '取消訂閱機況成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
@@ -147,7 +147,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.roomId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.roomId + ']'*/ +'取消訂閱機況成功'
+                            text: '取消訂閱機況成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
