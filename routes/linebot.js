@@ -127,9 +127,6 @@ function handleEvent(event) {
                     });
                     break;
             }
-
-
-
             break;
         case '取消訂閱機況':
             switch (event.source.type) {
@@ -141,7 +138,9 @@ function handleEvent(event) {
                             type: 'text',
                             text: /*'[' + event.source.userId + ']'*/ +'取消訂閱機況成功'
                         }
-                        return client.replyMessage(event.replyToken, echo);
+                        return client.replyMessage(event.replyToken, echo).catch(err, () => {
+                            console.log(err);
+                        });
                     });
                     break;
                 case 'room':
