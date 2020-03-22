@@ -99,7 +99,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.userId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.userId + ']'*/ +'訂閱成功'
+                            text: '訂閱成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
@@ -110,7 +110,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.roomId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.roomId + ']'*/ +'訂閱成功'
+                            text: '訂閱成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
@@ -121,7 +121,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.groupId, 'richmenu-d3578fabe42406aef23ebf8fdd02ad7e');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.groupId + ']'*/ +'訂閱成功'
+                            text: '訂閱成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
@@ -138,9 +138,7 @@ function handleEvent(event) {
                             type: 'text',
                             text: /*'[' + event.source.userId + ']'*/ +'取消訂閱機況成功'
                         }
-                        return client.replyMessage(event.replyToken, echo).catch(err, () => {
-                            console.log(err);
-                        });
+                        return client.replyMessage(event.replyToken, echo);
                     });
                     break;
                 case 'room':
@@ -160,7 +158,7 @@ function handleEvent(event) {
                         client.linkRichMenuToUser(event.source.groupId, 'richmenu-efd93335d640fcbf67988360217b4f79');
                         echo = {
                             type: 'text',
-                            text: /*'[' + event.source.groupId + ']'*/ +'取消訂閱機況成功'
+                            text: '取消訂閱機況成功'
                         }
                         return client.replyMessage(event.replyToken, echo);
                     });
