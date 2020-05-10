@@ -110,6 +110,7 @@ function handleEvent(event) {
                     });
                     break;
                 case 'group':
+
                     redisclient.hset("訂閱機況", event.source.groupId, Date.now(), () => {
                         console.log('訂閱成功');
                         client.linkRichMenuToUser(event.source.groupId, 'richmenu-954f3c7e07736b81068f671d9b009c0e');
