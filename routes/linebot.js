@@ -90,7 +90,7 @@ function handleEvent(event) {
                 case 'user':
                     redisclient.hset("訂閱機況", event.source.userId, Date.now(), () => {
                         console.log('訂閱成功');
-                        client.linkRichMenuToUser(event.source.userId, 'richmenu-827621309a1524e8937851c18b69429e');
+                        client.linkRichMenuToUser(event.source.userId, 'richmenu-7a92bd7b83bffe576e6a85397423008b');
                         echo = {
                             type: 'text',
                             text: '訂閱成功'
@@ -101,7 +101,7 @@ function handleEvent(event) {
                 case 'room':
                     redisclient.hset("訂閱機況", event.source.roomId, Date.now(), () => {
                         console.log('訂閱成功');
-                        client.linkRichMenuToUser(event.source.roomId, 'richmenu-827621309a1524e8937851c18b69429e');
+                        client.linkRichMenuToUser(event.source.roomId, 'richmenu-7a92bd7b83bffe576e6a85397423008b');
                         echo = {
                             type: 'text',
                             text: '訂閱成功'
@@ -112,7 +112,7 @@ function handleEvent(event) {
                 case 'group':
                     redisclient.hset("訂閱機況", event.source.groupId, Date.now(), () => {
                         console.log('訂閱成功');
-                        client.linkRichMenuToUser(event.source.groupId, 'richmenu-827621309a1524e8937851c18b69429e');
+                        client.linkRichMenuToUser(event.source.groupId, 'richmenu-7a92bd7b83bffe576e6a85397423008b');
                         echo = {
                             type: 'text',
                             text: '訂閱成功'
