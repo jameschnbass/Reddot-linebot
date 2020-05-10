@@ -17,16 +17,17 @@ function middleware1(req, res, next) {
       }
     }, function (error, response, body) {
       if (error) {
-        console.log(body);
+        console.log(error);
         return;
       }
       if (body) {
+        console.log(body);
         redisclient.hset("訂閱機況(Test)", body.access_token, Date.now(), () => {
           console.log('訂閱成功');
         });
         return;
       }
-      console.log(body);
+
     });
   }
   // res.send('搶先送出回應'); // 這會引起錯誤，但不中斷： Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client 
