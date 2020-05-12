@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const request = require('request');
 const redisclient = require('../lib/redisClient');
+const request = require('request');
 
 function middleware1(req, res, next) {
   if (req.query.code) {
@@ -30,7 +30,6 @@ function middleware1(req, res, next) {
 
     });
   }
-  // res.send('搶先送出回應'); // 這會引起錯誤，但不中斷： Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client 
   next(); // 引發下一個 middleware
 }
 /* GET home page. */
