@@ -3,6 +3,7 @@ var router = express.Router();
 const redisclient = require('../lib/redisClient');
 const mqttclient = require('../lib/mqttClient');
 /* GET users listing. */
+
 router.post('/DeviceMAC', function (req, res, next) {
     mqttclient.sadd('DeviceMAC', req.body.MAC, function (err, res) {
         if (err) throw err;
