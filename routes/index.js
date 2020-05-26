@@ -32,6 +32,7 @@ function middleware1(req, res, next) {
   }
   next(); // 引發下一個 middleware
 }
+
 /* GET home page. */
 router.get('/', middleware1, function (req, res, next) {
 
