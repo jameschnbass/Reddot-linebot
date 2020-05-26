@@ -22,8 +22,8 @@ function middleware1(req, res, next) {
       }
       if (body) {
         var info = JSON.parse(body);
-        redisclient.hset("訂閱機況(Test)", info.access_token, Date.now(), () => {
-          console.log('訂閱成功');
+        redisclient.hset("SubscribeNotify", info.access_token, Date.now(), () => {
+          console.log('SubscribeNotify : 訂閱成功' + info.access_token);
         });
         return;
       }
