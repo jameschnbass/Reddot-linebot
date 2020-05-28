@@ -33,7 +33,8 @@ function handleEvent(event) {
         case '目前機況':
             let value = {};
             let time;
-            let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
+            redisclient.smembers('DeviceMAC', (error, members) => {
+                members.forEach(MAC => {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
                     if(res.t)
                         time = new Date(res.t);
@@ -82,7 +83,7 @@ function handleEvent(event) {
                     }
                     return client.replyMessage(event.replyToken, echo);
                 })
-
+            });
             });
             break;
         case '訂閱機況':
