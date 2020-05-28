@@ -32,11 +32,11 @@ function handleEvent(event) {
     switch (event.message.text) {
         case '目前機況':
             let value = {};
+            let time;
             let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
-
-                    let time = new Date(res.t);
-                    console.log(res.t.toString());
+                    if(res.t)
+                        time = new Date(res.t);
                     if (error) {
                         console.log(error);
                     } else {
