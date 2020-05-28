@@ -5,7 +5,7 @@ const mqttclient = require('../lib/mqttClient');
 /* GET users listing. */
 
 router.post('/DeviceMAC', function (req, res, next) {
-    mqttclient.sadd('DeviceMAC', req.body.MAC, function (err, res) {
+    redisclient.sadd('DeviceMAC', req.body.MAC, function (err, res) {
         if (err) throw err;
         redisclient.set('DeviceMAC', req.body.MAC, () => {
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
