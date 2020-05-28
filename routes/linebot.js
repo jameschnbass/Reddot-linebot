@@ -36,7 +36,7 @@ function handleEvent(event) {
             redisclient.smembers('DeviceMAC', (error, members) => {
                 members.forEach(MAC => {
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
-                    if(res.t)
+                    if (res.t)
                         time = new Date(res.t);
                     if (error) {
                         console.log(error);
@@ -50,7 +50,6 @@ function handleEvent(event) {
                                     type: 'box',
                                     layout: 'vertical',
                                     contents: [{
-
                                             type: 'text',
                                             text: '鼎曜開發',
                                             size: "lg",
@@ -81,7 +80,7 @@ function handleEvent(event) {
                             }
                         }
                     }
-                    return client.replyMessage(event.replyToken, echo);
+                    client.replyMessage(event.replyToken, echo);
                 })
             });
             });
