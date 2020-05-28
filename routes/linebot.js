@@ -34,8 +34,8 @@ function handleEvent(event) {
             let value = {};
             let time;
             redisclient.smembers('DeviceMAC', (error, members) => {
-               
-                redisclient.hgetall('Advantech/' + members[0] + '/data', function (error, res) {
+               let MAC = members[0];
+                redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
                     if (res.t)
                         time = new Date(res.t);
                     if (error) {
