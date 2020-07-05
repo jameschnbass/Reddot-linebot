@@ -5,12 +5,12 @@ const mqttclient = require('../lib/mqttClient');
 /* GET users listing. */
 
 router.post('/DeviceMAC', function (req, res, next) {
-    mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', function (err, res) {
+    mqttclient.subscribe('Advantech/' + req.body.MAC + '/data', function (err, res_mqtt) {
         if (err) throw err;
         redisclient.set('DeviceMAC', req.body.MAC, () => {
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'online', 'false');
-            response.send('DeviceMAC :' + req.body.MAC + 'is Added.');
+            res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
 
         });
     });
@@ -29,7 +29,7 @@ router.get('/DeviceMAC', function (req, res, next) {
 
 router.delete('/DeviceMAC', function (req, res, next) {
     //刪除
-    mqttclient.unsubscribe('Advantech/' + req.body.MAC + '/data', function (err, res) {
+    mqttclient.unsubscribe('Advantech/' + req.body.MAC + '/data', function (err, res_mqtt) {
         if (err) throw err;
         redisclient.srem('DeviceMAC', req.body.MAC, () => {
             redisclient.del('Advantech/' + req.body.MAC + '/data');
