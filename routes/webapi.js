@@ -10,14 +10,17 @@ router.post('/DeviceMAC', function (req, res, next) {
         redisclient.set('DeviceMAC', req.body.MAC, () => {
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
             redisclient.hset('Advantech/' + req.body.MAC + '/data', 'online', 'false');
-            res.send('DeviceMAC :' + req.body.MAC + 'is Added.');
+            response.send('DeviceMAC :' + req.body.MAC + 'is Added.');
+
         });
     });
 });
-
 router.get('/DeviceMAC', function (req, res, next) {
     redisclient.smembers('DeviceMAC', function (err, members) {
-        if (err) throw err;
+        if (err) {
+            console.log(err);
+            return;
+        };
         //取得DeviceMAC
         res.send(members);
         console.log(members);

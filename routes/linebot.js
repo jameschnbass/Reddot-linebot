@@ -32,11 +32,12 @@ function handleEvent(event) {
     switch (event.message.text) {
         case '目前機況':
             let value = {};
-            let MAC = redisclient.get('DeviceMAC', (error, MAC) => {
+            let time;
+            redisclient.smembers('DeviceMAC', (error, members) => {
+               let MAC = members[0];
                 redisclient.hgetall('Advantech/' + MAC + '/data', function (error, res) {
-
-                    let time = new Date(res.t);
-                    console.log(res.t.toString());
+                    if (res.t)
+                        time = new Date(res.t);
                     if (error) {
                         console.log(error);
                     } else {
@@ -49,7 +50,6 @@ function handleEvent(event) {
                                     type: 'box',
                                     layout: 'vertical',
                                     contents: [{
-
                                             type: 'text',
                                             text: '鼎曜開發',
                                             size: "lg",
@@ -80,9 +80,8 @@ function handleEvent(event) {
                             }
                         }
                     }
-                    return client.replyMessage(event.replyToken, echo);
+                    client.replyMessage(event.replyToken, echo);
                 })
-
             });
             break;
         case '訂閱機況':
