@@ -16,7 +16,6 @@ router.post('/DeviceMAC', function (req, response, next) {
 
     });
 });
-
 router.get('/DeviceMAC', function (req, res, next) {
     redisclient.smembers('DeviceMAC', function (err, members) {
         if (err) {
@@ -31,7 +30,14 @@ router.get('/DeviceMAC', function (req, res, next) {
 
 router.delete('/DeviceMAC', function (req, res, next) {
     //刪除
-    res.send('DeviceMAC :delete.');
+    mqttclient.unsubscribe('Advantech/' + req.body.MAC + '/data', function (err, res_mqtt) {
+        if (err) throw err;
+        redisclient.srem('DeviceMAC', req.body.MAC, () => {
+            redisclient.del('Advantech/' + req.body.MAC + '/data');
+            redisclient.del('Advantech/' + req.body.MAC + '/data_EX');
+            res.send('DeviceMAC :' + req.body.MAC + ' is deleted.');
+        });
+    });
 });
 
 module.exports = router;
