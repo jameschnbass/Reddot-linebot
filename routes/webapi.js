@@ -10,10 +10,10 @@ router.post('/DeviceMAC', function (req, response, next) {
             console.log(err);
             return;
         };
-            redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
-            redisclient.hset('Advantech/' + req.body.MAC + '/data', 'online', 'false');
-            response.send('DeviceMAC :' + req.body.MAC + 'is Added.');
-       
+        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'light', 'red');
+        redisclient.hset('Advantech/' + req.body.MAC + '/data', 'online', 'false');
+        response.send('DeviceMAC :' + req.body.MAC + 'is Added.');
+
     });
 });
 
