@@ -35,10 +35,7 @@ function middleware1(req, res, next) {
 
 /* GET home page. */
 router.get('/', middleware1, function (req, res, next) {
-
-  res.render('index', {
-    title: '紅點科技'
-  });
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
 });
 
 module.exports = router;
